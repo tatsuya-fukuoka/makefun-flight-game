@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aonami Ring Run</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-screen="title">
+  <canvas id="scene"></canvas>
+
+  <div id="hud">
+    <div id="tape-box">
+      <canvas id="hdg-tape" width="440" height="46"></canvas>
+      <div id="hdg-readout"><span class="cap">HDG</span><span id="hdg-value">000°</span></div>
+    </div>
+    <div id="message" class="message hidden"></div>
+
+    <div id="speed-box" class="readout left">
+      <div class="cap">AIRSPEED</div>
+      <div class="big"><span id="spd-value">0</span><span id="spd-flag" class="flag">KT</span></div>
+    </div>
+    <div id="alt-box" class="readout right">
+      <div class="cap">ALTITUDE</div>
+      <div class="big"><span id="alt-value">0</span><span class="flag">FT</span></div>
+      <div id="vs-value" class="sub">0 FPM</div>
+      <div id="agl-value" class="sub">AGL 0 FT</div>
+    </div>
+
+    <div id="mission-box" class="panel">
+      <div id="ring-count">RING 1/8</div>
+      <div id="ring-dist">NEXT 0 m</div>
+      <div id="mission-time">TIME 00:00</div>
+      <div id="score-value">RINGS +0</div>
+    </div>
+
+    <div id="panel" class="panel">
+      <canvas id="horizon" width="190" height="190"></canvas>
+      <div class="gauge"><div class="gauge-track"><div id="fuel-bar" class="gauge-fill ok"></div></div><div class="cap">FUEL</div><div id="fuel-value" class="gv">100%</div></div>
+      <div class="gauge"><div class="gauge-track"><div id="thr-bar" class="gauge-fill ok"></div></div><div class="cap">THR</div><div id="thr-value" class="gv">0%</div></div>
+      <div class="gauge"><div class="gauge-track"><div id="dmg-bar" class="gauge-fill ok"></div></div><div class="cap">AIRFR</div><div id="dmg-value" class="gv">100%</div></div>
+      <div class="lights">
+        <div id="gear-light" class="light gear-down">GEAR ▼▼▼</div>
+        <div id="brake-light" class="light">BRAKE</div>
+        <div id="mute-flag" class="light on">MUTED</div>
+      </div>
+    </div>
+
+    <div id="target-marker"><div class="bracket"></div><div id="target-label">1</div></div>
+    <div id="target-arrow"><div class="arrow-head"></div><span>1</span></div>
+    <div id="key-hint">G gear · B brake · P pause · M mute · Esc title</div>
+  </div>
+
+  <div id="title" class="screen">
+    <div class="card">
+      <div class="kicker">A sortie over the Aonami archipelago</div>
+      <h1>Aonami Ring Run</h1>
+      <p class="lede">Take off from the island strip, thread the eight numbered rings in order over the bay and the hills, then come home and land. Fly clean, save fuel, keep the airframe whole.</p>
+      <table class="keys">
+        <tr><td>↑ ↓ or W S</td><td>Pitch (↓ / S pulls the nose up)</td></tr>
+        <tr><td>← → or A D</td><td>Roll — bank to turn</td></tr>
+        <tr><td>Shift / Ctrl &nbsp;or&nbsp; . / ,</td><td>Throttle up / down</td></tr>
+        <tr><td>Q E</td><td>Rudder and nose-wheel steering</td></tr>
+        <tr><td>G · B</td><td>Gear up/down · Wheel brakes</td></tr>
+        <tr><td>P · M · Esc</td><td>Pause · Mute · Back to title</td></tr>
+      </table>
+      <p class="tip">Lift fades below 52 kt. Land gently: gear down, under 97 kt, sink under 3 m/s, lined up with runway 36 or 18.</p>
+      <button id="start-button">Start sortie <span>(Enter)</span></button>
+    </div>
+  </div>
+
+  <div id="debrief" class="screen">
+    <div class="card">
+      <div class="kicker">Debrief</div>
+      <h2 id="debrief-title">Sortie complete</h2>
+      <table id="debrief-rows" class="results"></table>
+      <div class="score-line"><span class="cap">SCORE</span><span id="debrief-score">0</span><span id="debrief-best" class="best">Best 0</span></div>
+      <div class="buttons"><button id="again-button">Fly again <span>(Enter)</span></button><button id="title-button" class="ghost">Title <span>(Esc)</span></button></div>
+    </div>
+  </div>
+
+  <script src="vendor/three.min.js"></script>
+  <script src="src/config.js"></script>
+  <script src="src/random.js"></script>
+  <script src="src/input.js"></script>
+  <script src="src/world.js"></script>
+  <script src="src/aircraft.js"></script>
+  <script src="src/flight.js"></script>
+  <script src="src/instruments.js"></script>
+  <script src="src/audio.js"></script>
+  <script src="src/mission.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>
